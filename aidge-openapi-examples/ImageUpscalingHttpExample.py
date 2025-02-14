@@ -50,8 +50,8 @@ if __name__ == '__main__':
     api_domain = "api.aidc-ai.com"  # cn-api.aidc-ai.com for cn region
 
     # Call api
-    api_name = "/ai/image/cropping"
-    request = "{\"imageBase64\":\"\",\"targetHeight\":\"200\",\"imageUrl\":\"https://ae01.alicdn.com/kf/S99cb7e78ba2b46cc9134b87c323bb617x.png\",\"targetWidth\":\"200\"}"
+    api_name = "/ai/super/resolution"
+    request = "{\"imageUrl\":\"https://ae-pic-a1.aliexpress-media.com/kf/Sac81d99346924838bd15689923c5f976E.jpg_960x960q75.jpg\",\"upscaleFactor\":4}"
     result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, request)
 
     # Add a small delay between requests to avoid overwhelming the API
