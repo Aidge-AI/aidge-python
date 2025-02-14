@@ -16,11 +16,9 @@ limitations under the License.
 
 import requests
 import time
-import hmac
 import hashlib
-import json
+import hmac
 import os
-from base64 import b64encode
 
 
 def invoke_api(access_key_name, access_key_secret, api_name, api_domain, data):
@@ -51,30 +49,10 @@ if __name__ == '__main__':
 
     api_domain = "api.aidc-ai.com"  # cn-api.aidc-ai.com for cn region
 
-    # Call submit api
-    api_name = "/ai/virtual/tryon"
-    submit_request = "{\"requestParams\":\"[{\\\"clothesList\\\":[{\\\"imageUrl\\\":\\\"https://ae-pic-a1.aliexpress-media.com/kf/H7588ee37b7674fea814b55f2f516fda1z.jpg\\\",\\\"type\\\":\\\"tops\\\"}],\\\"model\\\":{\\\"base\\\":\\\"General\\\",\\\"gender\\\":\\\"female\\\",\\\"style\\\":\\\"universal_1\\\",\\\"body\\\":\\\"slim\\\"},\\\"viewType\\\":\\\"mixed\\\",\\\"inputQualityDetect\\\":0,\\\"generateCount\\\":4}]\"}"
+    # Call api
+    api_name = "/ai/image/cropping"
+    submit_request = "{\"imageBase64\":\"\",\"targetHeight\":\"200\",\"imageUrl\":\"https://ae01.alicdn.com/kf/S99cb7e78ba2b46cc9134b87c323bb617x.png\",\"targetWidth\":\"200\"}"
     submit_result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, submit_request)
 
-    submit_result_json = json.loads(submit_result)
-    task_id = submit_result_json.get("data", {}).get("result", {}).get("taskId")
-
-    # Query task status
-    query_api_name = "/ai/virtual/tryon-results"
-    query_request = json.dumps({"task_id": task_id})
-    query_result = None
-    while True:
-        try:
-            query_result = invoke_api(access_key_name, access_key_secret, query_api_name, api_domain, query_request)
-            query_result_json = json.loads(query_result)
-            task_status = query_result_json.get("data", {}).get("taskStatus")
-            if task_status == "finished":
-                break
-            time.sleep(1)
-        except KeyboardInterrupt:
-            break
-
-    # Final result
-    print(query_result)
-
-
+    # Add a small delay between requests to avoid overwhelming the API
+    time.sleep(1)

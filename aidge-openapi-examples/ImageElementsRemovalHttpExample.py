@@ -16,11 +16,9 @@ limitations under the License.
 
 import requests
 import time
-import hmac
 import hashlib
-import json
+import hmac
 import os
-from base64 import b64encode
 
 
 def invoke_api(access_key_name, access_key_secret, api_name, api_domain, data):
@@ -51,30 +49,10 @@ if __name__ == '__main__':
 
     api_domain = "api.aidc-ai.com"  # cn-api.aidc-ai.com for cn region
 
-    # Call submit api
-    api_name = "/ai/virtual/tryon"
-    submit_request = "{\"requestParams\":\"[{\\\"clothesList\\\":[{\\\"imageUrl\\\":\\\"https://ae-pic-a1.aliexpress-media.com/kf/H7588ee37b7674fea814b55f2f516fda1z.jpg\\\",\\\"type\\\":\\\"tops\\\"}],\\\"model\\\":{\\\"base\\\":\\\"General\\\",\\\"gender\\\":\\\"female\\\",\\\"style\\\":\\\"universal_1\\\",\\\"body\\\":\\\"slim\\\"},\\\"viewType\\\":\\\"mixed\\\",\\\"inputQualityDetect\\\":0,\\\"generateCount\\\":4}]\"}"
+    # Call api
+    api_name = "/ai/image/removal"
+    submit_request = "{\"image_url\":\"https://ae01.alicdn.com/kf/Sa78257f1d9a34dad8ee494178db12ec8l.jpg\",\"non_object_remove_elements\":\"[1,2,3,4]\",\"object_remove_elements\":\"[1,2,3,4]\",\"mask\":\"474556 160 475356 160 476156 160 476956 160 477756 160 478556 160 479356 160 480156 160 480956 160 481756 160 482556 160 483356 160 484156 160 484956 160 485756 160 486556 160 487356 160 488156 160 488956 160 489756 160 490556 160 491356 160 492156  160\"}"
     submit_result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, submit_request)
 
-    submit_result_json = json.loads(submit_result)
-    task_id = submit_result_json.get("data", {}).get("result", {}).get("taskId")
-
-    # Query task status
-    query_api_name = "/ai/virtual/tryon-results"
-    query_request = json.dumps({"task_id": task_id})
-    query_result = None
-    while True:
-        try:
-            query_result = invoke_api(access_key_name, access_key_secret, query_api_name, api_domain, query_request)
-            query_result_json = json.loads(query_result)
-            task_status = query_result_json.get("data", {}).get("taskStatus")
-            if task_status == "finished":
-                break
-            time.sleep(1)
-        except KeyboardInterrupt:
-            break
-
-    # Final result
-    print(query_result)
-
-
+    # Add a small delay between requests to avoid overwhelming the API
+    time.sleep(1)
