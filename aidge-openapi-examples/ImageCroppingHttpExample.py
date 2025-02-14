@@ -51,8 +51,8 @@ if __name__ == '__main__':
 
     # Call api
     api_name = "/ai/image/cropping"
-    submit_request = "{\"imageBase64\":\"\",\"targetHeight\":\"1000\",\"imageUrl\":\"https://ae01.alicdn.com/kf/S99cb7e78ba2b46cc9134b87c323bb617x.png\",\"targetWidth\":\"1000\"}"
-    submit_result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, submit_request)
+    request = "{\"imageBase64\":\"\",\"targetHeight\":\"1000\",\"imageUrl\":\"https://ae01.alicdn.com/kf/S99cb7e78ba2b46cc9134b87c323bb617x.png\",\"targetWidth\":\"1000\"}"
+    result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, request)
 
     # Add a small delay between requests to avoid overwhelming the API
     time.sleep(1)

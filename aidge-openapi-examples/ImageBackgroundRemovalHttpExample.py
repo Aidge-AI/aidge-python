@@ -51,8 +51,8 @@ if __name__ == '__main__':
 
     # Call api
     api_name = "/ai/image/cut/out"
-    submit_request = "{\"imageUrl\":\"https://ae01.alicdn.com/kf/Sa78257f1d9a34dad8ee494178db12ec8l.jpg\",\"backGroundType\":\"WHITE_BACKGROUND\"}"
-    submit_result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, submit_request)
+    request = "{\"imageUrl\":\"https://ae01.alicdn.com/kf/Sa78257f1d9a34dad8ee494178db12ec8l.jpg\",\"backGroundType\":\"WHITE_BACKGROUND\"}"
+    result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, request)
 
     # Add a small delay between requests to avoid overwhelming the API
     time.sleep(1)

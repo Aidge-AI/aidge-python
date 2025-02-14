@@ -51,8 +51,8 @@ if __name__ == '__main__':
 
     # Call api
     api_name = "/ai/text/marco/translator"
-    submit_request = "{\"text\":\"[\\\"Pen for iPad, 13 mins Fast Charging Stylus with Palm Rejection, Tilt Sensitivity, Compatible with 2018-2022 iPad Air 3/4/5, iPad Mini 5/6(Black)\\\"]\",\"sourceLanguage\":\"en\",\"targetLanguage\":\"ko\",\"formatType\":\"text\"}"
-    submit_result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, submit_request)
+    request = "{\"text\":\"[\\\"Pen for iPad, 13 mins Fast Charging Stylus with Palm Rejection, Tilt Sensitivity, Compatible with 2018-2022 iPad Air 3/4/5, iPad Mini 5/6(Black)\\\"]\",\"sourceLanguage\":\"en\",\"targetLanguage\":\"ko\",\"formatType\":\"text\"}"
+    result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, request)
 
     # Add a small delay between requests to avoid overwhelming the API
     time.sleep(1)

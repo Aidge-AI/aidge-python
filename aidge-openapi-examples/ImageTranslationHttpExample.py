@@ -51,8 +51,8 @@ if __name__ == '__main__':
 
     # Call api
     api_name = "/ai/image/translation"
-    submit_request = "{\"imageUrl\":\"https://ae01.alicdn.com/kf/S68468a838ad04cc081a4bd2db32745f1y/M3-Light-emitting-Bluetooth-Headset-Folding-LED-Card-Wireless-Headset-TYPE-C-Charging-Multi-scene-Use.jpg_.webp\",\"sourceLanguage\":\"en\",\"targetLanguage\":\"fr\",\"translatingTextInTheProduct\":\"false\",\"useImageEditor\":\"false\"}"
-    submit_result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, submit_request)
+    request = "{\"imageUrl\":\"https://ae01.alicdn.com/kf/S68468a838ad04cc081a4bd2db32745f1y/M3-Light-emitting-Bluetooth-Headset-Folding-LED-Card-Wireless-Headset-TYPE-C-Charging-Multi-scene-Use.jpg_.webp\",\"sourceLanguage\":\"en\",\"targetLanguage\":\"fr\",\"translatingTextInTheProduct\":\"false\",\"useImageEditor\":\"false\"}"
+    result = invoke_api(access_key_name, access_key_secret, api_name, api_domain, request)
 
     # Add a small delay between requests to avoid overwhelming the API
     time.sleep(1)
