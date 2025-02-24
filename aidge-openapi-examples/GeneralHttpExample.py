@@ -24,7 +24,9 @@ if __name__ == '__main__':
     accessKeyName = "your access key name"  # e.g. 512345
     accessKeySecret = "your access key secret"
     apiName = "api name"  # e.g. ai/text/translation/and/polishment
-    apiDomain = "api domain"  # e.g. api.aidc-ai.com or cn-api.aidc-ai.com
+    api_domain = "api.aidc-ai.com"  # for api purchased on global site
+    # api_domain = "cn-api.aidc-ai.com" # 中文站购买的API请使用此域名 (for api purchased on chinese site)
+
     data = "{your api request params}"
 
     # basic url

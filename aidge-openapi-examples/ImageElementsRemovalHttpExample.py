@@ -47,7 +47,8 @@ if __name__ == '__main__':
     access_key_name = os.environ.get("accessKey")  # e.g. "512345"
     access_key_secret = os.environ.get("secret")
 
-    api_domain = "api.aidc-ai.com"  # cn-api.aidc-ai.com for cn region
+    api_domain = "api.aidc-ai.com"  # for api purchased on global site
+    # api_domain = "cn-api.aidc-ai.com" # 中文站购买的API请使用此域名 (for api purchased on chinese site)
 
     # Call api
     api_name = "/ai/image/removal"
