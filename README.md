@@ -21,36 +21,59 @@ import time
 import hashlib
 import hmac
 
-if __name__ == '__main__':
-    # your personal data
-    accessKeyName = "your access key name"  # e.g. 512345
-    accessKeySecret = "your access key secret"
-    apiName = "api name"  # e.g. ai/text/translation/and/polishment
-    apiDomain = "api domain"  # e.g. api.aidc-ai.com or cn-api.aidc-ai.com
-    data = "{your api request params}"
+class ApiConfig:
+    """
+    API configuration class
+    """
+    # The name and secret of your api key. e.g. 512345 and S4etzZ73nF08vOXVhk3wZjIaLSHw0123
+    access_key_name = "your api key name"
+    access_key_secret = "your api key secret"
 
-    # basic url
-    url = "https://[api domain]/rest/[api name]?partner_id=aidge&sign_method=sha256&sign_ver=v2&app_key=[you access key name]&timestamp=[timestamp]&sign=[HmacSHA256 sign]"
+    # The domain of the API.
+    # for api purchased on global site. set api_domain to "api.aidc-ai.com"
+    # 中文站购买的API请使用"cn-api.aidc-ai.com"域名 (for api purchased on chinese site) set api_domain to "cn-api.aidc-ai.com"
+    api_domain = "api.aidc-ai.com"
+    # api_domain = "cn-api.aidc-ai.com"
 
-    # timestamp
+    # We offer trial quota to help you familiarize and test how to use the Aidge API in your account
+    # To use trial quota, please set use_trial_resource to True
+    # If you set use_trial_resource to False before you purchase the API
+    # You will receive "Sorry, your calling resources have been exhausted........"
+    # 我们为您的账号提供一定数量的免费试用额度可以试用任何API。请将use_trial_resource设置为True用于试用。
+    # 如设置为False，且您未购买该API，将会收到"Sorry, your calling resources have been exhausted........."的错误提示
+    use_trial_resource = False
+    # use_trial_resource = True
+
+def invoke_api(api_name, data):
     timestamp = str(int(time.time() * 1000))
 
-    # calculate sha256 sign
-    sign = str(hmac.new(accessKeySecret.encode("utf-8"), (accessKeySecret + timestamp).encode("utf-8"),
-                        digestmod=hashlib.sha256).hexdigest()).upper()
+    # Calculate sha256 sign
+    sign_string = ApiConfig.access_key_secret + timestamp
+    sign = hmac.new(ApiConfig.access_key_secret.encode('utf-8'), sign_string.encode('utf-8'),
+                    hashlib.sha256).hexdigest().upper()
 
-    # replace the holder with real value
-    url = url.replace("[api domain]", apiDomain)
-    url = url.replace("[api name]", apiName)
-    url = url.replace("[you access key name]", accessKeyName)
-    url = url.replace("[timestamp]", timestamp)
-    url = url.replace("[HmacSHA256 sign]", sign)
+    url = f"https://{ApiConfig.api_domain}/rest{api_name}?partner_id=aidge&sign_method=sha256&sign_ver=v2&app_key={ApiConfig.access_key_name}&timestamp={timestamp}&sign={sign}"
 
-    headers = {"Content-Type": "application/json"}
+    # Add "x-iop-trial": "true" for trial
+    headers = {
+        "Content-Type": "application/json",
+        "x-iop-trial": str(ApiConfig.use_trial_resource).lower()
+    }
 
-    # do http call
-    response = requests.post(url, headers=headers, data=data)
+    # Http request
+    response = requests.post(url, data=data, headers=headers)
     print(response.text)
+    return response.text
+
+if __name__ == '__main__':
+    # your personal data
+    api_name = "api name"  # e.g. ai/text/translation/and/polishment
+    data = "{your api request params}"
+
+    result = invoke_api(api_name, data)
+
+    # Add a small delay between requests to avoid overwhelming the API
+    time.sleep(1)
 
 ```
 
