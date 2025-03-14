@@ -72,6 +72,8 @@ if __name__ == '__main__':
     # Constructor request Parameters
     request_params = [{
         "clothesList": [{
+            # URL of the clothing image should be accessible from the public network.
+            # The resolution should be greater than 500x500 pixels and up to a maximum of 3000x3000 pixels
             "imageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/H7588ee37b7674fea814b55f2f516fda1z.jpg",
             "type": "tops"
         }],
