@@ -58,6 +58,8 @@ def invoke_api(api_name, data):
 
     # Http request
     response = requests.post(url, data=data, headers=headers)
+    # FAQ:https://app.gitbook.com/o/pBUcuyAewroKoYr3CeVm/s/cXGtrD26wbOKouIXD83g/getting-started/faq
+    # FAQ(中文/Simple Chinese):https://aidge.yuque.com/org-wiki-aidge-bzb63a/brbggt/ny2tgih89utg1aha
     print(response.text)
     return response.text
 
